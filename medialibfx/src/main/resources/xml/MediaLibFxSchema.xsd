@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:jxb="http://java.sun.com/xml/ns/jaxb" jxb:version="2.0">
+   <xs:element name="audio">
+      <xs:complexType>
+         <xs:sequence maxOccurs="1" minOccurs="1">
+            <xs:element name="name" type="xs:string"></xs:element>
+            <xs:element name="duration" type="xs:integer"></xs:element>
+            <xs:element name="size" type="xs:integer"></xs:element>
+            <xs:element name="bitRate" type="xs:integer"></xs:element>
+            <xs:element name="year" type="xs:string"></xs:element>
+            <xs:element name="playCount" type="xs:string"></xs:element>
+            <xs:element name="rating">
+               <xs:simpleType>
+                  <xs:restriction base="xs:integer">
+                     <xs:minInclusive value="0" />
+                     <xs:maxInclusive value="5" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:element>
+            <xs:element name="playedLast" type="xs:string"></xs:element>
+            <xs:element name="dateAdded" type="xs:string"></xs:element>
+            <xs:element name="location" type="xs:string"></xs:element>
+            <xs:element name="album" type="xs:string"></xs:element>
+            <xs:element name="genre" type="xs:string"></xs:element>
+            <xs:element name="artist" type="xs:string"></xs:element>
+            <xs:element name="albumArtist" type="xs:string"></xs:element>
+            <xs:element name="trackId" type="xs:integer"></xs:element>
+            <xs:element name="bpm" type="xs:integer"></xs:element>
+            <xs:element name="publisher" type="xs:string"></xs:element>
+            <xs:element name="composer" type="xs:string"></xs:element>
+         </xs:sequence>
+         <xs:attribute name="mimeType" type="xs:string" use="required"></xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="video">
+      <xs:complexType>
+         <xs:sequence maxOccurs="1" minOccurs="1">
+            <xs:element name="name" type="xs:string"></xs:element>
+            <xs:element name="duration" type="xs:integer"></xs:element>
+            <xs:element name="size" type="xs:integer"></xs:element>
+            <xs:element name="bitRate" type="xs:integer"></xs:element>
+            <xs:element name="year" type="xs:string"></xs:element>
+            <xs:element name="playCount" type="xs:string"></xs:element>
+            <xs:element name="rating">
+               <xs:simpleType>
+                  <xs:restriction base="xs:integer">
+                     <xs:minInclusive value="0" />
+                     <xs:maxInclusive value="5" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:element>
+            <xs:element name="playedLast" type="xs:string"></xs:element>
+            <xs:element name="dateAdded" type="xs:string"></xs:element>
+            <xs:element name="location" type="xs:string"></xs:element>
+            <xs:element name="width" type="xs:integer"></xs:element>
+            <xs:element name="height" type="xs:integer"></xs:element>
+            <xs:element name="aspectRation" type="xs:string"></xs:element>
+            <xs:sequence maxOccurs="unbounded" minOccurs="1">
+               <xs:element name="language" type="xs:string"></xs:element>
+            </xs:sequence>
+         </xs:sequence>
+         <xs:attribute name="mimeType" type="xs:string" use="required"></xs:attribute>
+      </xs:complexType>
+   </xs:element>
+
+
+
+   <xs:element name="media">
+      <xs:complexType>
+         <xs:choice maxOccurs="unbounded" minOccurs="0">
+            <xs:element ref="audio"></xs:element>
+            <xs:element ref="video"></xs:element>
+         </xs:choice>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>
