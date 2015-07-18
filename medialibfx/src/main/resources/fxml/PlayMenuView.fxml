@@ -12,9 +12,9 @@
          <children>
             <HBox>
                <children>
-                  <Button mnemonicParsing="false" text="next" />
-                  <Button mnemonicParsing="false" text="prev" />
-                  <Button mnemonicParsing="false" text="play" />
+                  <Button fx:id="nextButton" mnemonicParsing="false" text="next" />
+                  <Button fx:id="prevButton" mnemonicParsing="false" text="prev" />
+                  <Button fx:id="playButton" mnemonicParsing="false" text="play" />
                </children>
             </HBox>
             <Slider />
@@ -24,12 +24,12 @@
          <children>
             <HBox>
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label text="00:00" />
+                  <ImageView fx:id="coverImageView" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="durationLabel" text="00:00" />
                   <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="status_1" />
-                        <Label text="status_2" />
+                        <Label fx:id="status1Label" text="status_1" />
+                        <Label fx:id="status2Label" text="status_2" />
                      </children>
                   </VBox>
                </children>
