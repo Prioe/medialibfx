@@ -30,7 +30,8 @@ public class MainApp extends Application {
     Context.getInstance()
         .setMainController((MainController) loader.getController());
     Scene mainScene = new Scene(mainParent);
-    mainScene.getStylesheets().add(PropertyManager.get("window.stylesheet"));
+    mainScene.getStylesheets().add(PropertyManager.get("window.stylesheets.colors"));
+    mainScene.getStylesheets().add(PropertyManager.get("window.stylesheets.layout"));
     primaryStage.setScene(mainScene);
     primaryStage
         .setWidth(Double.parseDouble(PropertyManager.get("window.width")));

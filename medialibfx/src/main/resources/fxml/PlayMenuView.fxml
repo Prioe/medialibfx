@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -8,13 +9,15 @@
 
 <fx:root prefHeight="100.0" prefWidth="600.0" type="HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.malbertz.medialibfx.controller.PlayMenuController">
    <children>
-      <VBox>
+      <VBox alignment="CENTER">
          <children>
-            <HBox>
+            <HBox alignment="CENTER">
                <children>
-                  <Button fx:id="nextButton" mnemonicParsing="false" text="next" />
-                  <Button fx:id="prevButton" mnemonicParsing="false" text="prev" />
-                  <Button fx:id="playButton" mnemonicParsing="false" text="play" />
+                  <Button fx:id="prevButton" mnemonicParsing="false" />
+                  <Button fx:id="playButton" mnemonicParsing="false" />
+                  <Button fx:id="nextButton" mnemonicParsing="false" />
+
+
                </children>
             </HBox>
             <Slider />
@@ -22,11 +25,11 @@
       </VBox>
       <VBox HBox.hgrow="ALWAYS">
          <children>
-            <HBox>
+            <HBox alignment="CENTER">
                <children>
                   <ImageView fx:id="coverImageView" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="durationLabel" text="00:00" />
-                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label fx:id="status1Label" text="status_1" />
                         <Label fx:id="status2Label" text="status_2" />
