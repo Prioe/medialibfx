@@ -1,9 +1,16 @@
 package de.malbertz.medialibfx.model.skin;
 
+import java.io.File;
+import java.io.IOException;
+
 public class Skin {
 
-  public Skin(String string) {
-    // TODO Auto-generated constructor stub
+  private File layout;
+  private File colors;
+  private File xml; 
+  
+  public Skin(String string) throws IOException {
+    
   }
 
 }

@@ -1,5 +1,7 @@
 package de.malbertz.medialibfx.model.skin;
 
+import java.io.IOException;
+
 import de.malbertz.medialibfx.model.properties.PropertyManager;
 
 public class SkinLoader {
@@ -7,7 +9,11 @@ public class SkinLoader {
   private static final Skin skin;
   
   static {
-    skin = new Skin(PropertyManager.get("skin"));
+    try {
+      skin = new Skin(PropertyManager.get("skin"));
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
   
   public static Skin getSkin() {
