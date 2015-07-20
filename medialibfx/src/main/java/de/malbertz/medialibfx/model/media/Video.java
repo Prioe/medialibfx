@@ -1,7 +1,10 @@
 package de.malbertz.medialibfx.model.media;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Date;
 
+import de.malbertz.medialibfx.model.media.mediainfo.MediaInfoLoader;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyListProperty;
@@ -53,6 +56,32 @@ public class Video implements Media {
     this.language = new ReadOnlyListWrapper<>(
         FXCollections.observableArrayList(language));
 
+  }
+
+  public Video(Video clone) {
+    this.mimeType = clone.mimeType;
+    this.name = clone.name;
+    this.duration = clone.duration;
+    this.size = clone.size;
+    this.bitRate = clone.bitRate;
+    this.year = clone.year;
+    this.playCount = clone.playCount;
+    this.rating = clone.rating;
+    this.playedLast = clone.playedLast;
+    this.dateAdded = clone.dateAdded;
+    this.location = clone.location;
+    this.width = clone.width;
+    this.height = clone.height;
+    this.aspectRatio = clone.aspectRatio;
+    this.language = clone.language;
+  }
+  
+  public Video(File file) throws FileNotFoundException {
+    this((Video) MediaInfoLoader.fromFile(file));
+  }
+  
+  public Video(String string) throws FileNotFoundException {
+    this(new File(string));
   }
 
   @Override

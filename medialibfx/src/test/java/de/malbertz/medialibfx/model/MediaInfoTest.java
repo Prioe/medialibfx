@@ -2,6 +2,7 @@ package de.malbertz.medialibfx.model;
 
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
@@ -20,6 +21,7 @@ import javax.xml.bind.DatatypeConverter;
 import org.junit.Test;
 
 import de.malbertz.medialibfx.model.media.mediainfo.MediaInfo;
+import de.malbertz.medialibfx.model.media.mediainfo.MissingMimeLookupTable;
 
 public class MediaInfoTest {
 
@@ -27,7 +29,7 @@ public class MediaInfoTest {
   @Test
   public void test() {
     String FileName = "C:\\Users\\Michi\\Desktop\\Example.ogg";
-    String video = "H:\\Videos\\Serien\\Game of Thrones\\Staffel 2\\s02e01.Der Norden vergisst nicht.mp4";
+    String video = "D:\\Downloads\\hgbgh06nvfhg70ecdfc\\hgbgh06nvfhg70ecdfc\\E01.mkv";
     String audio = "D:\\Musik\\Soundtracks\\Avengers Age of Ultron OST\\02 Heroes.m4a";
     try {
     // Comment this line and uncomment the next one if you would like to test
@@ -41,7 +43,7 @@ public class MediaInfoTest {
         ByBuffer_LocalFile(FileName);
     } else 
       ByFileName(audio);
-    ByFileName(video);
+      ByFileName(video);
     } catch (Exception e) {
       fail(e.getMessage());
     }
@@ -67,11 +69,13 @@ public class MediaInfoTest {
 
     MediaInfo MI = new MediaInfo();
     MI.Open(FileName);
-    MI.Option("Complete", "1");
+    MI.Option("Complete", "");
     //System.out.println(MI.Inform());
     
-    System.out.println(MI.Get(MediaInfo.StreamKind.General, 0, "InternetMediaType",
+    System.out.println("MI: " + MI.Get(MediaInfo.StreamKind.General, 0, "InternetMediaType",
         MediaInfo.InfoKind.Text, MediaInfo.InfoKind.Name));
+    
+    System.out.println("java: " + MissingMimeLookupTable.lookup(new File(FileName)));
     /*
     To_Display += "\r\n\r\nOpen\r\n";
     if (MI.Open(FileName) > 0)

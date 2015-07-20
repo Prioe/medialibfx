@@ -16,12 +16,14 @@ public class MediaInfoLoader {
     if (mediaInfo.Open(file.toString()) < 0)
       throw new FileNotFoundException();
     String mimeType = getGeneralString("InternetMediaType");
-
+    if ("".equals(mimeType))
+      mimeType = MissingMimeLookupTable.lookup(file);
+    
     int playCount = 0;
     int rating = 0;
     Date playedLast = null;
     Date dateAdded = new Date();
-    String location = file.toURI().toString();
+    String location = file.toString();
 
     if (mimeType.indexOf("audio") >= 0) {
 

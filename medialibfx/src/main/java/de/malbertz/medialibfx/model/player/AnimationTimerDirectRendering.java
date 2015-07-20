@@ -1,4 +1,4 @@
-package de.malbertz.medialibfx.model.player.internal.vlcj;
+package de.malbertz.medialibfx.model.player;
 
 import javafx.animation.AnimationTimer;
 /**

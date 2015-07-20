@@ -63,34 +63,30 @@ public class Audio implements Media {
 
   }
 
-  public Audio(Media clone) {
-    if (!(clone instanceof Audio))
-      throw new IllegalArgumentException(
-          "Media type to be cloned must be Audio");
-    Audio audioClone = (Audio) clone;
-    this.mimeType = audioClone.mimeType;
-    this.name = audioClone.name;
-    this.duration = audioClone.duration;
-    this.size = audioClone.size;
-    this.bitRate = audioClone.bitRate;
-    this.year = audioClone.year;
-    this.playCount = audioClone.playCount;
-    this.rating = audioClone.rating;
-    this.playedLast = audioClone.playedLast;
-    this.dateAdded = audioClone.dateAdded;
-    this.location = audioClone.location;
-    this.album = audioClone.album;
-    this.genre = audioClone.genre;
-    this.artist = audioClone.artist;
-    this.albumArtist = audioClone.albumArtist;
-    this.trackId = audioClone.trackId;
-    this.bpm = audioClone.bpm;
-    this.publisher = audioClone.publisher;
-    this.composer = audioClone.composer;
+  public Audio(Audio clone) {
+    this.mimeType = clone.mimeType;
+    this.name = clone.name;
+    this.duration = clone.duration;
+    this.size = clone.size;
+    this.bitRate = clone.bitRate;
+    this.year = clone.year;
+    this.playCount = clone.playCount;
+    this.rating = clone.rating;
+    this.playedLast = clone.playedLast;
+    this.dateAdded = clone.dateAdded;
+    this.location = clone.location;
+    this.album = clone.album;
+    this.genre = clone.genre;
+    this.artist = clone.artist;
+    this.albumArtist = clone.albumArtist;
+    this.trackId = clone.trackId;
+    this.bpm = clone.bpm;
+    this.publisher = clone.publisher;
+    this.composer = clone.composer;
   }
 
   public Audio(File file) throws FileNotFoundException {
-    this(MediaInfoLoader.fromFile(file));
+    this((Audio) MediaInfoLoader.fromFile(file));
   }
 
   public Audio(String string) throws FileNotFoundException {

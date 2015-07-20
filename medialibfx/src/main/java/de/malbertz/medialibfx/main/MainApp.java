@@ -18,6 +18,7 @@ import javafx.stage.Window;
 public class MainApp extends Application {
 
   private static final Logger log = LoggerFactory.getLogger(MainApp.class);
+  private MainController mainController;
   
   @Override
   public void start(Stage primaryStage) throws Exception {
@@ -27,9 +28,9 @@ public class MainApp extends Application {
     FXMLLoader loader = new FXMLLoader(getClass().getResource(mainFxmlFile));
     loader.setResources(bundle);
     Parent mainParent = loader.load();
-    MainController controller = (MainController) loader.getController();
-    Context.getInstance()
-        .setMainController(controller);
+    
+    mainController = (MainController) loader.getController();
+    Context.getInstance().setMainController(mainController);
     Scene mainScene = new Scene(mainParent);
     mainScene.getStylesheets().add(PropertyManager.get("window.stylesheets.colors"));
     mainScene.getStylesheets().add(PropertyManager.get("window.stylesheets.layout"));
@@ -48,7 +49,8 @@ public class MainApp extends Application {
   @Override
   public void stop() {
     try {
-      Window window = Context.getInstance().getMainController().getContentPane()
+      mainController.getDirectRendering().stop();
+      Window window = mainController.getContentPane()
           .getScene().getWindow();
       PropertyManager.set("window.height", window.getHeight() + "");
       PropertyManager.set("window.width", window.getWidth() + "");
@@ -61,7 +63,7 @@ public class MainApp extends Application {
   }
 
   public static void main(String[] args) {
-    launch(args);
+    Application.launch(args);
   }
 
 }

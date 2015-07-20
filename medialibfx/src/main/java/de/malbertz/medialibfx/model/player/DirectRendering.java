@@ -1,9 +1,10 @@
-package de.malbertz.medialibfx.model.player.internal.vlcj;
+package de.malbertz.medialibfx.model.player;
 
 import java.nio.ByteBuffer;
 
 import com.sun.jna.Memory;
 
+import de.malbertz.medialibfx.model.media.Media;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.PixelFormat;
@@ -46,8 +47,8 @@ public abstract class DirectRendering extends Canvas {
 
     @Override
     public BufferFormat getBufferFormat(int sourceWidth, int sourceHeight) {
-      final int width = 720;
-      final int height = 580;
+      final int width = sourceWidth;
+      final int height = sourceHeight;
       
       Platform.runLater(() -> {
         DirectRendering.this.setWidth(width);
@@ -59,8 +60,15 @@ public abstract class DirectRendering extends Canvas {
     
   }
   
-  public DirectMediaPlayerComponent getMediaComponent(){
-    return mediaPlayerComponent; 
+  public void start(Media media) {
+    mediaPlayerComponent.getMediaPlayer().playMedia(media.getLocation());
+    startTimer();
+  }
+  
+  public void stop() {
+    stopTimer();
+    mediaPlayerComponent.getMediaPlayer().stop();
+    mediaPlayerComponent.getMediaPlayer().release();
   }
   
   protected void renderFrame() {
