@@ -1,0 +1,9 @@
+#nextButton {
+   -fx-graphic: url("../image/next.png");
+} 
+#prevButton {
+   -fx-graphic: url("../image/previous.png");
+}
+#playButton {
+   -fx-graphic: url("../image/play.png");
+}
