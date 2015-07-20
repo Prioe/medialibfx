@@ -59,6 +59,10 @@ public abstract class DirectRendering extends Canvas {
     
   }
   
+  public DirectMediaPlayerComponent getMediaComponent(){
+    return mediaPlayerComponent; 
+  }
+  
   protected void renderFrame() {
     Memory[] nativeBuffers = mediaPlayerComponent.getMediaPlayer().lock();
     if (nativeBuffers != null) {

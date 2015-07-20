@@ -18,7 +18,7 @@ import javafx.stage.Window;
 public class MainApp extends Application {
 
   private static final Logger log = LoggerFactory.getLogger(MainApp.class);
-
+  
   @Override
   public void start(Stage primaryStage) throws Exception {
     String mainFxmlFile = "/fxml/MainView.fxml";
@@ -27,8 +27,9 @@ public class MainApp extends Application {
     FXMLLoader loader = new FXMLLoader(getClass().getResource(mainFxmlFile));
     loader.setResources(bundle);
     Parent mainParent = loader.load();
+    MainController controller = (MainController) loader.getController();
     Context.getInstance()
-        .setMainController((MainController) loader.getController());
+        .setMainController(controller);
     Scene mainScene = new Scene(mainParent);
     mainScene.getStylesheets().add(PropertyManager.get("window.stylesheets.colors"));
     mainScene.getStylesheets().add(PropertyManager.get("window.stylesheets.layout"));

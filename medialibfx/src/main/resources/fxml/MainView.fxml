@@ -7,7 +7,10 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.malbertz.medialibfx.controller.MainController">
    <children>
-      <MenuBar/>
-      <BorderPane fx:id="contentPane" VBox.vgrow="ALWAYS"/>
+      <MenuBar />
+      <BorderPane fx:id="contentPane" VBox.vgrow="ALWAYS">
+         <center>
+            <TabPane fx:id="centerContentPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" />
+         </center></BorderPane>
    </children>
 </VBox>

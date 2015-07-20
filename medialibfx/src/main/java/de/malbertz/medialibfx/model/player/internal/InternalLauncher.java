@@ -2,18 +2,24 @@ package de.malbertz.medialibfx.model.player.internal;
 
 import java.util.Collection;
 
+import com.sun.jna.NativeLibrary;
+
 import de.malbertz.medialibfx.model.media.Media;
 import de.malbertz.medialibfx.model.player.Launcher;
+import de.malbertz.medialibfx.model.player.internal.vlcj.AnimationTimerDirectRendering;
+import de.malbertz.medialibfx.model.properties.PropertyManager;
 import javafx.beans.property.BooleanProperty;
+import javafx.scene.Node;
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
-public class InternalLauncher implements Launcher {
+public class InternalLauncher extends AnimationTimerDirectRendering implements Launcher {
 
-  public InternalLauncher() {
-    boolean found = new NativeDiscovery().discover();
-    System.out.println(found);
-    System.out.println(LibVlc.INSTANCE.libvlc_get_version());
+  private AnimationTimerDirectRendering directRendering;
+  
+  public InternalLauncher() {   
+    directRendering = new AnimationTimerDirectRendering();
   }
   
   @Override
@@ -36,8 +42,6 @@ public class InternalLauncher implements Launcher {
 
   @Override
   public void launch(Media file) {
-    // TODO Auto-generated method stub
-    
   }
 
   @Override
