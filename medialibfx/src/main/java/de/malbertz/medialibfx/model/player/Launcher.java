@@ -9,7 +9,6 @@ public interface Launcher {
   BooleanProperty playingProperty();
   boolean isPlaying();
   void setPlaying(boolean playing);
-  String[] getLegalExtensions();
   void launch(Media file);
   void launch(Collection<Media> c);
 }
