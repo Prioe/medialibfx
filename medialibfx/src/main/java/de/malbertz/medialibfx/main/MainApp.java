@@ -49,7 +49,7 @@ public class MainApp extends Application {
   @Override
   public void stop() {
     try {
-      mainController.getDirectRendering().release();
+      mainController.getPlayer().release();
       Window window = mainController.getContentPane()
           .getScene().getWindow();
       PropertyManager.set("window.height", window.getHeight() + "");

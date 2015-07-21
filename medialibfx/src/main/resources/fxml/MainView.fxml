@@ -7,14 +7,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.malbertz.medialibfx.controller.MainController">
    <children>
-      <MenuBar>
-         <menus>
-            <Menu mnemonicParsing="false" text="Debug">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#testMediaPlayer" text="Test Media Player" />
-              </items>
-            </Menu>
-         </menus></MenuBar>
+      <MenuBar fx:id="menuBar"/>
       <BorderPane fx:id="contentPane" VBox.vgrow="ALWAYS">
          <center>
             <TabPane fx:id="centerContentPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" />

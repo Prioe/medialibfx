@@ -5,6 +5,7 @@ import javafx.animation.AnimationTimer;
  * From https://github.com/caprica/vlcj-javafx
  *
  */
+@Deprecated
 public class AnimationTimerDirectRendering extends DirectRendering {
 
   private final AnimationTimer timer;

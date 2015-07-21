@@ -19,6 +19,7 @@ import uk.co.caprica.vlcj.player.direct.format.RV32BufferFormat;
  * From https://github.com/caprica/vlcj-javafx
  *
  */
+@Deprecated
 public abstract class DirectRendering extends Canvas {
   
   private final PixelWriter pixelWriter;
@@ -61,7 +62,8 @@ public abstract class DirectRendering extends Canvas {
   }
   
   public void start(Media media) {
-    mediaPlayerComponent.getMediaPlayer().playMedia(media.getLocation());
+    mediaPlayerComponent.getMediaPlayer().prepareMedia(media.getLocation());
+    mediaPlayerComponent.getMediaPlayer().start();
     startTimer();
   }
   
