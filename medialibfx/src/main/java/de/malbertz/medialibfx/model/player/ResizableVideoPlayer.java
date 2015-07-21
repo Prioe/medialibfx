@@ -22,7 +22,7 @@ import uk.co.caprica.vlcj.player.direct.BufferFormatCallback;
 import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
 import uk.co.caprica.vlcj.player.direct.format.RV32BufferFormat;
 
-public class ResizablePlayer {
+class ResizableVideoPlayer extends MediaPlayer {
 
   private ImageView imageView;
   private DirectMediaPlayerComponent mediaPlayerComponent;
@@ -31,7 +31,7 @@ public class ResizablePlayer {
   private WritablePixelFormat<ByteBuffer> pixelFormat;
   private FloatProperty videoSourceRatioProperty;
 
-  public ResizablePlayer() {
+  public ResizableVideoPlayer() {
     super();
     mediaPlayerComponent = new CanvasPlayerComponent();
     playerHolder = new Pane();
@@ -40,22 +40,31 @@ public class ResizablePlayer {
     initializeImageView();
   }
 
-  public Pane getPlayerHolder() {
+  Pane getPlayerHolder() {
     return playerHolder;
   }
 
-  public boolean start(Media media) {
-    return mediaPlayerComponent.getMediaPlayer().prepareMedia(media.getLocation()) 
-        && mediaPlayerComponent.getMediaPlayer().start();
-  }
-
-  public void stop() {
+  @Override
+  void stop() {
     mediaPlayerComponent.getMediaPlayer().stop();
   }
-  
-  public void release() {
-    stop();
+
+  @Override
+  void release() {
+    mediaPlayerComponent.getMediaPlayer().stop();
     mediaPlayerComponent.getMediaPlayer().release();
+    mediaPlayerComponent.getMediaPlayerFactory().release();
+  }
+
+  @Override
+  void start(Media media) {
+    mediaPlayerComponent.getMediaPlayer().prepareMedia(media.getLocation());
+    mediaPlayerComponent.getMediaPlayer().start();
+  }
+
+  @Override
+  void pause() {
+    mediaPlayerComponent.getMediaPlayer().pause();
   }
 
   private void initializeImageView() {
@@ -125,7 +134,10 @@ public class ResizablePlayer {
         return;
       }
       Platform.runLater(() -> {
-        Memory nativeBuffer = mediaPlayer.lock()[0];
+        Memory[] nativeBuffers0 = mediaPlayer.lock();
+        if (nativeBuffers0 == null)
+          return;
+        Memory nativeBuffer = nativeBuffers0[0];
         try {
           ByteBuffer byteBuffer = nativeBuffer.getByteBuffer(0,
               nativeBuffer.size());

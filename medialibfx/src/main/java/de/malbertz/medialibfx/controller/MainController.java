@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import de.malbertz.medialibfx.model.media.Audio;
 import de.malbertz.medialibfx.model.media.Video;
-import de.malbertz.medialibfx.model.player.ResizablePlayer;
+import de.malbertz.medialibfx.model.player.MultiMediaPlayer;
 import de.malbertz.medialibfx.model.properties.PropertyManager;
 import de.malbertz.medialibfx.view.FilterMenuView;
 import de.malbertz.medialibfx.view.MediaListView;
@@ -30,7 +30,7 @@ public class MainController implements Initializable{
   private MediaListView mediaListView;
   private FilterMenuView filterMenuView;
   private PlayMenuView playMenuView;
-  private ResizablePlayer player;
+  private MultiMediaPlayer player;
   
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -38,8 +38,9 @@ public class MainController implements Initializable{
       mediaListView = new MediaListView(resources);
       filterMenuView = new FilterMenuView(resources);
       playMenuView = new PlayMenuView(resources);
-      player = new ResizablePlayer();
-      centerContentPane.getTabs().add(new Tab(resources.getString("window.internalplayer.tabname"), player.getPlayerHolder()));
+      player = new MultiMediaPlayer();
+      
+      centerContentPane.getTabs().add(new Tab(resources.getString("window.internalplayer.tabname"), player.getVideoHolder()));
       centerContentPane.getTabs().add(new Tab(resources.getString("window.medialist.tabname"), mediaListView));
       contentPane.setLeft(filterMenuView);
       contentPane.setTop(playMenuView);   
@@ -77,7 +78,7 @@ public class MainController implements Initializable{
     devMenu.getItems().addAll(testVideo, testAudio);
   }
   
-  public ResizablePlayer getPlayer() {
+  public MultiMediaPlayer getPlayer() {
     return player;
   }
   
