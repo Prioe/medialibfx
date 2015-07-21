@@ -29,6 +29,7 @@ public class MainController implements Initializable{
   
   @FXML private void testMediaPlayer() {
     try {
+      centerContentPane.getSelectionModel().select(0);
       directRendering.start(new Video("D:\\Downloads\\hgbgh06nvfhg70ecdfc\\hgbgh06nvfhg70ecdfc\\E01.mkv"));
     } catch (FileNotFoundException e) {
       // TODO Auto-generated catch block
@@ -43,10 +44,11 @@ public class MainController implements Initializable{
       filterMenuView = new FilterMenuView(resources);
       playMenuView = new PlayMenuView(resources);
       directRendering = new AnimationTimerDirectRendering();
+      centerContentPane.getTabs().add(new Tab(resources.getString("window.internalplayer.tabname"), directRendering));
       centerContentPane.getTabs().add(new Tab(resources.getString("window.medialist.tabname"), mediaListView));
       contentPane.setLeft(filterMenuView);
       contentPane.setTop(playMenuView);      
-      centerContentPane.getTabs().add(new Tab(resources.getString("window.internalplayer.tabname"), directRendering));
+      
       
     } catch (IOException e) {
       new ExceptionAlert(e).showAndWait();

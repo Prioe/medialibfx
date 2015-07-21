@@ -65,9 +65,18 @@ public abstract class DirectRendering extends Canvas {
     startTimer();
   }
   
+  public void pause() {
+    
+  }
+  
   public void stop() {
     stopTimer();
     mediaPlayerComponent.getMediaPlayer().stop();
+    
+  }
+  
+  public void release() {
+    stop();
     mediaPlayerComponent.getMediaPlayer().release();
   }
   
