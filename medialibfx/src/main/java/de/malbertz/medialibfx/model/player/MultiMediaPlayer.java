@@ -2,6 +2,7 @@ package de.malbertz.medialibfx.model.player;
 
 import de.malbertz.medialibfx.model.media.Media;
 import javafx.scene.layout.Pane;
+import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
 
 public class MultiMediaPlayer {
   private ResizableVideoPlayer player;
@@ -18,15 +19,22 @@ public class MultiMediaPlayer {
     }
   }
 
+  public void pause() {
+    player.pause();
+  }
+  
   public void stop() {
     player.stop();
   }
 
   public void release() {
     player.release();
-
   }
 
+  public DirectMediaPlayer getMediaPlayer() {
+    return player.getMediaPlayer();
+  }
+  
   public Pane getVideoHolder() {
     return player.getPlayerHolder();
   }

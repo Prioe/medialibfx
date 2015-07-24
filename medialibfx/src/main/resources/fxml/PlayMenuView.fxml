@@ -20,7 +20,7 @@
 
                </children>
             </HBox>
-            <Slider />
+            <Slider fx:id="volumeSlider" />
          </children>
       </VBox>
       <VBox HBox.hgrow="ALWAYS">
@@ -37,7 +37,7 @@
                   </VBox>
                </children>
             </HBox>
-            <Slider />
+            <Slider fx:id="durationSlider" />
          </children>
       </VBox>
    </children>

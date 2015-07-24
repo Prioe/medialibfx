@@ -26,7 +26,7 @@ public class XmlParser {
     jdom.store();
   }
   
-  public static void writeToXml(Collection<Media> media) throws IOException {
+  public static void writeToXml(Collection<? extends Media> media) throws IOException {
     for (Media media2 : media) {
       jdom.write(media2);      
     }

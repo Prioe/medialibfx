@@ -64,6 +64,10 @@ class ResizableVideoPlayer {
   void pause() {
     mediaPlayerComponent.getMediaPlayer().pause();
   }
+  
+  DirectMediaPlayer getMediaPlayer() {
+    return player;
+  }
 
   private void initializeImageView() {
     Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();

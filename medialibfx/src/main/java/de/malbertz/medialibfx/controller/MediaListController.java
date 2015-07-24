@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import de.malbertz.medialibfx.main.Context;
 import de.malbertz.medialibfx.model.media.Media;
 import de.malbertz.medialibfx.model.media.MediaFilter;
 import de.malbertz.medialibfx.model.properties.xml.XmlParser;
@@ -15,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -38,6 +40,10 @@ public class MediaListController implements Initializable {
     filteredMediaList.setPredicate(filter.predicate());
     initColumns();
   }
+  
+  public boolean isEmpty() {
+    return mediaTableView.getItems().isEmpty();
+  }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -46,7 +52,15 @@ public class MediaListController implements Initializable {
       return true;
     });
     mediaTableView.setItems(filteredMediaList);
-
+    mediaTableView.setRowFactory(tv -> {
+      TableRow<Media> row = new TableRow<>();
+      row.setOnMouseClicked(event -> {
+        if (event.getClickCount() == 2 && !row.isEmpty())
+          Context.getInstance().getMainController().getPlayer().start(row.getItem());
+        
+      });
+      return row;
+    });
     mediaList.addAll(XmlParser.loadFromXml());
     initColumns();
 
