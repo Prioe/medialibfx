@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import de.malbertz.medialibfx.controller.MainController;
 import de.malbertz.medialibfx.model.properties.PropertyManager;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -51,14 +50,13 @@ public class MainApp extends Application {
   public void stop() {
     try {
       log.debug("Stopping app ...");
-      Platform.runLater(() -> mainController.getPlayer().release());
+      mainController.getPlayer().release();
       Window window = mainController.getContentPane()
           .getScene().getWindow();
       PropertyManager.set("window.height", window.getHeight() + "");
       PropertyManager.set("window.width", window.getWidth() + "");
       PropertyManager.set("window.position.x", window.getX() + "");
       PropertyManager.set("window.position.y", window.getY() + "");
-      log.debug("Saved loc and bounds. App is closing successfully.");
     } catch (Exception e) {
       log.error("An error occured while saving window properties on stop", e);
     }

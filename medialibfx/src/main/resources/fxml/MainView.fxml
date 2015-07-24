@@ -7,7 +7,15 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.malbertz.medialibfx.controller.MainController">
    <children>
-      <MenuBar fx:id="menuBar"/>
+      <MenuBar fx:id="menuBar">
+         <menus>
+            <Menu mnemonicParsing="false" text="%window.menu.file">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#importFiles" text="%window.menu.file.importfiles" />
+                <MenuItem mnemonicParsing="false" onAction="#importDirectoryRecursive" text="%window.menu.file.importdirectories" />
+              </items>
+            </Menu>
+         </menus></MenuBar>
       <BorderPane fx:id="contentPane" VBox.vgrow="ALWAYS">
          <center>
             <TabPane fx:id="centerContentPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" />

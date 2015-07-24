@@ -4,35 +4,31 @@ import de.malbertz.medialibfx.model.media.Media;
 import javafx.scene.layout.Pane;
 
 public class MultiMediaPlayer {
-  private ResizableVideoPlayer videoPlayer;
-  private AudioPlayer audioPlayer;
+  private ResizableVideoPlayer player;
 
   public MultiMediaPlayer() {
-    videoPlayer = new ResizableVideoPlayer();
-    audioPlayer = new AudioPlayer();
+    player = new ResizableVideoPlayer();
   }
 
   public void start(Media media) {
     if (media.getMimeType().indexOf("video") >= 0) {
-      stop();
-      videoPlayer.start(media);
+      player.start(media);
     } else if (media.getMimeType().indexOf("audio") >= 0) {
-      
+      player.start(media);
     }
   }
 
   public void stop() {
-    audioPlayer.stop();
-    videoPlayer.stop();
+    player.stop();
   }
 
   public void release() {
-    audioPlayer.release();
-    videoPlayer.release();
+    player.release();
+
   }
 
   public Pane getVideoHolder() {
-    return videoPlayer.getPlayerHolder();
+    return player.getPlayerHolder();
   }
-  
+
 }

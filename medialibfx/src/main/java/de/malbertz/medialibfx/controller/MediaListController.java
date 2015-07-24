@@ -26,6 +26,14 @@ public class MediaListController implements Initializable {
   private ObservableList<Media> mediaList;
   private FilteredList<Media> filteredMediaList;
 
+  public Media getSelected() {
+    return mediaTableView.getSelectionModel().getSelectedItem();
+  }
+  
+  public void add(Media media) {
+    mediaList.add(media);
+  }
+  
   public void applyFilter(MediaFilter filter) {
     filteredMediaList.setPredicate(filter.predicate());
     initColumns();

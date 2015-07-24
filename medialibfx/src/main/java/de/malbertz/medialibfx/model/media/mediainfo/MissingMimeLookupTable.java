@@ -17,7 +17,8 @@ public class MissingMimeLookupTable {
   }
   
   public static String lookup(File file) {
-    return map.get(FilenameUtils.getExtension(file.toString()));
+    String t = map.get(FilenameUtils.getExtension(file.toString()));
+    return t == null ? "" : t;
   }
   
   private MissingMimeLookupTable(){}

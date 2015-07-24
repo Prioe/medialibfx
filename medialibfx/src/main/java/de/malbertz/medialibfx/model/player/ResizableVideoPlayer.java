@@ -22,14 +22,15 @@ import uk.co.caprica.vlcj.player.direct.BufferFormatCallback;
 import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
 import uk.co.caprica.vlcj.player.direct.format.RV32BufferFormat;
 
-class ResizableVideoPlayer extends MediaPlayer {
+class ResizableVideoPlayer {
 
   private ImageView imageView;
-  private DirectMediaPlayerComponent mediaPlayerComponent;
+  private final DirectMediaPlayerComponent mediaPlayerComponent;
   private WritableImage writableImage;
-  private Pane playerHolder;
-  private WritablePixelFormat<ByteBuffer> pixelFormat;
-  private FloatProperty videoSourceRatioProperty;
+  private final Pane playerHolder;
+  private final WritablePixelFormat<ByteBuffer> pixelFormat;
+  private final FloatProperty videoSourceRatioProperty;
+  private final DirectMediaPlayer player;
 
   public ResizableVideoPlayer() {
     super();
@@ -37,6 +38,7 @@ class ResizableVideoPlayer extends MediaPlayer {
     playerHolder = new Pane();
     videoSourceRatioProperty = new SimpleFloatProperty(0.4f);
     pixelFormat = PixelFormat.getByteBgraPreInstance();
+    player = mediaPlayerComponent.getMediaPlayer();
     initializeImageView();
   }
 
@@ -44,25 +46,21 @@ class ResizableVideoPlayer extends MediaPlayer {
     return playerHolder;
   }
 
-  @Override
   void stop() {
-    mediaPlayerComponent.getMediaPlayer().stop();
+    player.stop();
   }
 
-  @Override
   void release() {
-    mediaPlayerComponent.getMediaPlayer().stop();
-    mediaPlayerComponent.getMediaPlayer().release();
+    player.stop();
+    player.release();
     mediaPlayerComponent.getMediaPlayerFactory().release();
   }
 
-  @Override
   void start(Media media) {
-    mediaPlayerComponent.getMediaPlayer().prepareMedia(media.getLocation());
-    mediaPlayerComponent.getMediaPlayer().start();
+    player.stop();
+    player.startMedia(media.getLocation());
   }
 
-  @Override
   void pause() {
     mediaPlayerComponent.getMediaPlayer().pause();
   }
@@ -95,7 +93,7 @@ class ResizableVideoPlayer extends MediaPlayer {
   }
 
   private void fitImageViewSize(float width, float height) {
-    Platform.runLater(() -> {
+    //Platform.runLater(() -> {
       float fitHeight = videoSourceRatioProperty.get() * width;
       if (fitHeight > height) {
         imageView.setFitHeight(height);
@@ -109,7 +107,7 @@ class ResizableVideoPlayer extends MediaPlayer {
         imageView.setY((height - fitHeight) / 2);
         imageView.setX(0);
       }
-    });
+    //});
   }
 
   private class CanvasPlayerComponent extends DirectMediaPlayerComponent {
@@ -133,7 +131,7 @@ class ResizableVideoPlayer extends MediaPlayer {
       if (writableImage == null) {
         return;
       }
-      Platform.runLater(() -> {
+      //Platform.runLater(() -> {
         Memory[] nativeBuffers0 = mediaPlayer.lock();
         if (nativeBuffers0 == null)
           return;
@@ -147,7 +145,7 @@ class ResizableVideoPlayer extends MediaPlayer {
         } finally {
           mediaPlayer.unlock();
         }
-      });
+      //});
     }
   }
 

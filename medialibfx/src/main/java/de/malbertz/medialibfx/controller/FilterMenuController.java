@@ -32,10 +32,10 @@ public class FilterMenuController implements Initializable {
 
   private void initFilters(TreeItem<MediaFilter> root) {    
     MediaFilter videoFilter = new MediaFilter("Video")
-        .type("video");
+        .mimeType("video");
     MediaFilter audioFilter = new MediaFilter("Audio")
-        .type("audio");
-    MediaFilter audioTest = audioFilter.clone().name("Avengers").filterName("contains Avengers");
+        .mimeType("audio");
+    MediaFilter audioTest = new MediaFilter("contains Avengers", audioFilter).name("Avengers");
     TreeItem<MediaFilter> videoItem = new TreeItem<MediaFilter>(videoFilter);
     TreeItem<MediaFilter> audioItem = new TreeItem<MediaFilter>(audioFilter);
     audioItem.getChildren().add(new TreeItem<MediaFilter>(audioTest));
