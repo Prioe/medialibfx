@@ -1,6 +1,7 @@
 package de.malbertz.medialibfx.model.media;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,6 +40,14 @@ public class MediaLoader {
       throw new IllegalArgumentException(dir + "is no Directory");
 
     return XmlParser.loadFromItunes();
+  }
+  
+  public static Media loadMedia(File f) throws FileNotFoundException {
+    return MediaInfoLoader.fromFile(f);
+  }
+  
+  public static Media loadMedia(String s) throws FileNotFoundException {
+    return MediaInfoLoader.fromFile(s);
   }
 
   private MediaLoader() {

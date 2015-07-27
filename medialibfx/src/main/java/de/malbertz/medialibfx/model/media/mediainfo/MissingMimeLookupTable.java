@@ -14,6 +14,8 @@ public class MissingMimeLookupTable {
     map = new HashMap<>();
     map.put("mkv", "video/x-matroska");
     map.put("mka", "audio/x-matroska");
+    map.put("ogg", "audio/ogg");
+    map.put("ogv", "video/ogg");
   }
   
   public static String lookup(File file) {

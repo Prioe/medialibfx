@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 import de.malbertz.medialibfx.model.player.MultiMediaPlayer;
 import de.malbertz.medialibfx.model.properties.PropertyManager;
+import de.malbertz.medialibfx.model.skin.Skin;
+import de.malbertz.medialibfx.model.skin.SkinFactory;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -21,6 +23,8 @@ import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
 
 public class PlayMenuController implements Initializable {
 
+  private static final Skin skin = SkinFactory.getSkin();
+  
   @FXML
   private Button nextButton;
   @FXML
@@ -46,6 +50,7 @@ public class PlayMenuController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // all initialization is happening when the mediaplayer is set
+    
   }
 
   private void initMediaPlayer() {
@@ -55,20 +60,12 @@ public class PlayMenuController implements Initializable {
       @Override
       public void playing(MediaPlayer player) {
         durationSlider.setMax(mediaPlayer.getLength());
-        Platform.runLater(() -> {
-          while (playButton.getStyleClass().remove("play-button")) {
-          }
-          playButton.getStyleClass().add("pause-button");
-        });
+        Platform.runLater(() -> playButton.setGraphic(skin.pauseGraphic()));
       }
 
       @Override
       public void paused(MediaPlayer player) {
-        Platform.runLater(() -> {
-          while (playButton.getStyleClass().remove("pause-button")) {
-          }
-          playButton.getStyleClass().add("play-button");
-        });
+        Platform.runLater(() -> playButton.setGraphic(skin.playGraphic()));
       }
 
       @Override
@@ -79,10 +76,14 @@ public class PlayMenuController implements Initializable {
   }
 
   private void initButtons() {
-    playButton.setOnAction(event -> {
-      player.pause();
-    });
-    playButton.getStyleClass().add("play-button");
+    // Actions
+    playButton.setOnAction(event -> player.pause());
+    
+    // graphics
+    playButton.setGraphic(skin.playGraphic());
+    nextButton.setGraphic(skin.nextGraphic());
+    prevButton.setGraphic(skin.prevGraphic());
+    
   }
 
   private void initSliders() {

@@ -260,4 +260,21 @@ public class Audio implements Media {
     return mimeType;
   }
 
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append("Audio [mimeType=").append(mimeType).append(", name=")
+        .append(name).append(", duration=").append(duration).append(", size=")
+        .append(size).append(", bitRate=").append(bitRate).append(", year=")
+        .append(year).append(", playCount=").append(playCount)
+        .append(", rating=").append(rating).append(", playedLast=")
+        .append(playedLast).append(", dateAdded=").append(dateAdded)
+        .append(", location=").append(location).append(", album=").append(album)
+        .append(", genre=").append(genre).append(", artist=").append(artist)
+        .append(", albumArtist=").append(albumArtist).append(", trackId=")
+        .append(trackId).append(", bpm=").append(bpm).append(", publisher=")
+        .append(publisher).append(", composer=").append(composer).append("]");
+    return builder.toString();
+  }  
+  
 }

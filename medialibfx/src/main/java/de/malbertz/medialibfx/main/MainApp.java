@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import de.malbertz.medialibfx.controller.MainController;
 import de.malbertz.medialibfx.model.properties.PropertyManager;
+import de.malbertz.medialibfx.model.skin.Skin;
+import de.malbertz.medialibfx.model.skin.SkinFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +20,7 @@ import javafx.stage.Window;
 public class MainApp extends Application {
 
   private static final Logger log = LoggerFactory.getLogger(MainApp.class);
+  private static final Skin skin = SkinFactory.getSkin();
   private MainController mainController;
   
   @Override
@@ -32,8 +35,9 @@ public class MainApp extends Application {
     mainController = (MainController) loader.getController();
     Context.getInstance().setMainController(mainController);
     Scene mainScene = new Scene(mainParent);
-    mainScene.getStylesheets().add(PropertyManager.get("window.stylesheets.colors"));
-    mainScene.getStylesheets().add(PropertyManager.get("window.stylesheets.layout"));
+    mainScene.getStylesheets().addAll(skin.getStylesheets());
+    //mainScene.getStylesheets().add(PropertyManager.get("window.stylesheets.colors"));
+    //mainScene.getStylesheets().add(PropertyManager.get("window.stylesheets.layout"));
     primaryStage.setScene(mainScene);
     primaryStage
         .setWidth(Double.parseDouble(PropertyManager.get("window.width")));

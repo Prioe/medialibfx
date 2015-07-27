@@ -1,4 +1,4 @@
-package de.malbertz.medialibfx.model;
+package de.malbertz.medialibfx.model.properties;
 
 import static org.junit.Assert.*;
 
