@@ -1,6 +1,5 @@
 package de.malbertz.medialibfx.model.skin;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,7 +52,6 @@ public class SkinFactory {
 
   private static class SkinImpl implements Skin {
     private final Properties skinProperties;
-    private final String path;
     private List<String> stylesheets;
     private Node play;
     private Node pause;
@@ -71,7 +69,6 @@ public class SkinFactory {
 
     private SkinImpl(String path, boolean resource)
         throws FileNotFoundException, IOException {
-      this.path = path;
       this.skinProperties = new Properties(defaults);
       if (resource) {
         String t = path + path.substring(path.lastIndexOf('/')) + ".properties";

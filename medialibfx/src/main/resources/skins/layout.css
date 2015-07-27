@@ -1,15 +1,44 @@
 /* PlayMenu */
+#controlPane {
+   -fx-alignment: CENTER;
+   -fx-spacing: 5;
+   -fx-pref-width: 175;
+   -fx-pref-height: 100
+}
+#statusPane {
+   -fx-alignment: CENTER;
+   -fx-spacing: 10
+}
+#statusSubPane {
+   -fx-alignment: CENTER_LEFT;
+}
+
 /* Buttons */
 #nextButton {
    -fx-background-radius: 0.0 3.0 3.0 0.0;
+   -fx-pref-width: 45;
 } 
 #prevButton {
    -fx-background-radius: 3.0 0.0 0.0 3.0;
+   -fx-pref-width: 45;
 }
 #playButton {
    -fx-background-radius: 0.0 0.0 0.0 0.0;
+   -fx-pref-width: 45;
 }
    
-
 /* Slider */
+#durationSlider .thumb {
+   -fx-background-color: null;
+}
+
+#durationSlider .track {
+     -fx-background-color: null;  /* Hide the track */
+}
+#durationProgress {
+   -fx-pref-height: 12;
+}
 /* Label */
+#durationLabel {
+   -fx-font-size: 40;
+}

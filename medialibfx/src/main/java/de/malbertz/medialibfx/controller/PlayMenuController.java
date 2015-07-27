@@ -16,10 +16,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
+import javafx.scene.layout.HBox;
+import javafx.scene.control.ProgressBar;
 
 public class PlayMenuController implements Initializable {
 
@@ -32,6 +36,14 @@ public class PlayMenuController implements Initializable {
   @FXML
   private Button playButton;
   @FXML
+  private Button stopButton;
+  @FXML
+  private Button volumeButton;
+  @FXML
+  private ToggleButton shuffleButton;
+  @FXML
+  private ToggleButton repeatButton;
+  @FXML
   private ImageView coverImageView;
   @FXML
   private Label durationLabel;
@@ -43,6 +55,10 @@ public class PlayMenuController implements Initializable {
   private Slider volumeSlider;
   @FXML
   private Slider durationSlider;
+  @FXML ProgressBar durationProgress;
+  @FXML private VBox controlPane;
+  @FXML private HBox statusPane;
+  @FXML private VBox statusSubPane; 
 
   private MultiMediaPlayer player;
   private DirectMediaPlayer mediaPlayer;
@@ -83,15 +99,22 @@ public class PlayMenuController implements Initializable {
     playButton.setGraphic(skin.playGraphic());
     nextButton.setGraphic(skin.nextGraphic());
     prevButton.setGraphic(skin.prevGraphic());
+    stopButton.setGraphic(skin.stopGraphic());
+    shuffleButton.setGraphic(skin.shuffleGraphic());
+    repeatButton.setGraphic(skin.repeatGraphic());
+    volumeButton.setGraphic(skin.highVolumeGraphic());
     
   }
 
   private void initSliders() {
+    durationProgress.prefWidthProperty().bind(durationSlider.widthProperty().subtract(10));
+    durationProgress.progressProperty().bind(durationSlider.valueProperty().divide(durationSlider.maxProperty()));
+    
     volumeSlider.setValue(
         Double.parseDouble(PropertyManager.get("window.player.volume")));
   }
 
-  private long lastSliderUpdate = System.currentTimeMillis(); 
+  private long lastSliderUpdate = System.currentTimeMillis();
   private void initLabels() {
     volumeSlider.valueProperty().addListener(o -> {
       Platform.runLater(() -> {
@@ -101,7 +124,14 @@ public class PlayMenuController implements Initializable {
           PropertyManager.set("window.player.volume", vol + "");
         } catch (IOException e) {
         }
-        // TODO change volume icons here
+        if (vol == 0) 
+          volumeButton.setGraphic(skin.muteGraphic());
+        else if (vol <= 30) 
+          volumeButton.setGraphic(skin.lowVolumeGraphic());
+        else if (vol > 30 && vol < 70) 
+          volumeButton.setGraphic(skin.midVolumeGraphic());
+        else if (vol >= 70) 
+          volumeButton.setGraphic(skin.highVolumeGraphic());
       });
     });
     volumeSlider.valueProperty().addListener(
