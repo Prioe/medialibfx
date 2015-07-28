@@ -26,17 +26,16 @@
    -fx-background-radius: 0.0 0.0 0.0 0.0;
    -fx-pref-width: 45;
 }
-   
+#volumeButton {
+   -fx-background-color: transparent;
+   -fx-pref-width: 35;
+}   
 /* Slider */
-#durationSlider .thumb {
-   -fx-background-color: null;
+#volumeSlider {
+      -fx-padding: 0 0 0 5;
 }
-
-#durationSlider .track {
-     -fx-background-color: null;  /* Hide the track */
-}
-#durationProgress {
-   -fx-pref-height: 12;
+#durationSlider {
+   -fx-padding: 0 0 0 5;
 }
 /* Label */
 #durationLabel {

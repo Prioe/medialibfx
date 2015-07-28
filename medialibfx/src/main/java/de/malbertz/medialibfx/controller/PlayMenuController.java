@@ -18,12 +18,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
-import javafx.scene.layout.HBox;
-import javafx.scene.control.ProgressBar;
 
 public class PlayMenuController implements Initializable {
 
@@ -55,7 +54,6 @@ public class PlayMenuController implements Initializable {
   private Slider volumeSlider;
   @FXML
   private Slider durationSlider;
-  @FXML ProgressBar durationProgress;
   @FXML private VBox controlPane;
   @FXML private HBox statusPane;
   @FXML private VBox statusSubPane; 
@@ -94,6 +92,7 @@ public class PlayMenuController implements Initializable {
   private void initButtons() {
     // Actions
     playButton.setOnAction(event -> player.pause());
+    volumeButton.setOnAction(event -> volumeSlider.setValue(0));
     
     // graphics
     playButton.setGraphic(skin.playGraphic());
@@ -107,9 +106,7 @@ public class PlayMenuController implements Initializable {
   }
 
   private void initSliders() {
-    durationProgress.prefWidthProperty().bind(durationSlider.widthProperty().subtract(10));
-    durationProgress.progressProperty().bind(durationSlider.valueProperty().divide(durationSlider.maxProperty()));
-    
+   
     volumeSlider.setValue(
         Double.parseDouble(PropertyManager.get("window.player.volume")));
   }
