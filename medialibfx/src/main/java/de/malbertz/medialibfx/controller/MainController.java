@@ -12,6 +12,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import org.controlsfx.control.StatusBar;
+import org.controlsfx.dialog.ExceptionDialog;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.malbertz.medialibfx.model.media.Audio;
 import de.malbertz.medialibfx.model.media.Media;
 import de.malbertz.medialibfx.model.media.Video;
@@ -22,7 +27,6 @@ import de.malbertz.medialibfx.model.properties.xml.XmlParser;
 import de.malbertz.medialibfx.view.FilterMenuView;
 import de.malbertz.medialibfx.view.MediaListView;
 import de.malbertz.medialibfx.view.PlayMenuView;
-import de.malbertz.medialibfx.view.alerts.ExceptionAlert;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,17 +41,22 @@ import javafx.stage.FileChooser;
 
 public class MainController implements Initializable {
 
+  private static final Logger log = LoggerFactory.getLogger(MainController.class);
+  
   @FXML
   private BorderPane contentPane;
   @FXML
   private TabPane centerContentPane;
   @FXML
   private MenuBar menuBar;
+  @FXML
+  private StatusBar statusBar;
 
   private MediaListView mediaListView;
   private FilterMenuView filterMenuView;
   private PlayMenuView playMenuView;
   private MultiMediaPlayer player;
+  private ResourceBundle bundle;
 
   @FXML
   private void importFiles() {
@@ -67,34 +76,51 @@ public class MainController implements Initializable {
     DirectoryChooser dirChooser = new DirectoryChooser();
     File dir = dirChooser.showDialog(contentPane.getScene().getWindow());
     if (dir == null) return;
-    Task<Object> t = new Task<Object>() {
+    Task<Object> worker = new Task<Object>() {
       @Override
       protected Object call() throws Exception {
         try {
+          updateMessage(bundle.getString("import.directory.status.walking"));
           List<File> list = Files.walk(Paths.get(dir.toString())).filter(Files::isRegularFile)
               .map(Path::toFile).collect(Collectors.toList());
+          int max = list.size();
           List<Media> mediaList = new ArrayList<>();
-          for (File file : list) {
+          updateMessage(bundle.getString("import.directory.status.loadingmetadata"));
+          for (int i = 0; i < max; i++) {
             try {
-              Media media = MediaInfoLoader.fromFile(file);
+              Media media = MediaInfoLoader.fromFile(list.get(i));
               mediaListView.getController().add(media);
               mediaList.add(media);
+              updateProgress(i, max);
             } catch (IllegalArgumentException e) {
             } catch (FileNotFoundException e) {              
             }
           }
+          updateMessage(bundle.getString("import.directory.status.writingxml"));
           XmlParser.writeToXml(mediaList);
+          updateProgress(0, 0);
+          done();
         } catch (IOException e) {
-          new ExceptionAlert(e).showAndWait();
+          new ExceptionDialog(e).showAndWait();
+          log.error(e.getMessage(), e);
         }
         return null;
       }
     };
-    new Thread(t).start();
+    statusBar.textProperty().bind(worker.messageProperty());
+    statusBar.progressProperty().bind(worker.progressProperty());
+    
+    worker.setOnSucceeded(event -> {
+      statusBar.textProperty().unbind();
+      statusBar.progressProperty().unbind();
+    });
+    
+    new Thread(worker).start();
   }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    this.bundle = resources;
     try {
       mediaListView = new MediaListView(resources);
       filterMenuView = new FilterMenuView(resources);
@@ -115,7 +141,8 @@ public class MainController implements Initializable {
       }
 
     } catch (IOException e) {
-      new ExceptionAlert(e).showAndWait();
+      new ExceptionDialog(e).showAndWait();
+      log.error(e.getMessage(), e);
     }
   }
 
@@ -128,7 +155,8 @@ public class MainController implements Initializable {
         player.start(new Video(
             "D:\\Downloads\\hgbgh06nvfhg70ecdfc\\hgbgh06nvfhg70ecdfc\\E01.mkv"));
       } catch (Exception e) {
-        new ExceptionAlert(e).showAndWait();
+        new ExceptionDialog(e).showAndWait();
+        log.error(e.getMessage(), e);
       }
     });
     MenuItem testAudio = new MenuItem("Test Audio");
@@ -137,7 +165,8 @@ public class MainController implements Initializable {
         player.start(new Audio(
             "D:\\Musik\\Metal\\Slipknot\\1999 - Slipknot\\02. (SIC).mp3"));
       } catch (Exception e) {
-        new ExceptionAlert(e).showAndWait();
+        new ExceptionDialog(e).showAndWait();
+        log.error(e.getMessage(), e);
       }
     });
     MenuItem testYouTube = new MenuItem("Test YouTube");
@@ -145,7 +174,8 @@ public class MainController implements Initializable {
       try {
         
       } catch (Exception e) {
-        new ExceptionAlert(e).showAndWait();
+        new ExceptionDialog(e).showAndWait();
+        log.error(e.getMessage(), e);
       }
     });
     devMenu.getItems().addAll(testVideo, testAudio, testYouTube);

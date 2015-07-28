@@ -10,6 +10,7 @@ import de.malbertz.medialibfx.main.Context;
 import de.malbertz.medialibfx.model.media.Media;
 import de.malbertz.medialibfx.model.media.MediaFilter;
 import de.malbertz.medialibfx.model.properties.xml.XmlParser;
+import de.malbertz.medialibfx.view.MediaCellFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -83,26 +84,48 @@ public class MediaListController implements Initializable {
       String property = mime.getKey(), type = mime.getValue();
       switch (type) {
       case "string":
-        column = new TableColumn<Media, String>(property);
-
+        TableColumn<Media, String> stringColumn = new TableColumn<>(prettyHeader(property));
+        stringColumn.setCellFactory(new MediaCellFactory<String>(property));
+        column = stringColumn;
         break;
       case "int":
-        column = new TableColumn<Media, Integer>(property);
+        TableColumn<Media, Integer> integerColumn = new TableColumn<>(prettyHeader(property));
+        integerColumn.setCellFactory(new MediaCellFactory<Integer>(property));
+        column = integerColumn;
         break;
       case "date":
-        column = new TableColumn<Media, Date>(property);
+        TableColumn<Media, Date> dateColumn = new TableColumn<>(prettyHeader(property));
+        dateColumn.setCellFactory(new MediaCellFactory<Date>(property));
+        column = dateColumn;
         break;
       case "strings":
-        column = new TableColumn<Media, String[]>(property);
+        TableColumn<Media, String[]> stringsColumn = new TableColumn<>(prettyHeader(property));
+        stringsColumn.setCellFactory(new MediaCellFactory<String[]>(property));
+        column = stringsColumn;
         break;
       default:
         break;
       }
-      if (column != null)
+      if (column != null) 
         column.setCellValueFactory(new PropertyValueFactory<>(property));
+      
       mediaTableView.getColumns().add(column);
 
     }
   };
+  
+  private String prettyHeader(String s) {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
+      if (i == 0) 
+        sb.append(Character.toUpperCase(c));
+      else if (Character.isUpperCase(c))
+        sb.append(" ").append(c);
+      else
+        sb.append(c);
+    }
+    return sb.toString();
+  }
 
 }
