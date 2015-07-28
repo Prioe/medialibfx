@@ -13,7 +13,7 @@ import javafx.util.Callback;
 public class MediaCellFactory<R>
     implements Callback<TableColumn<Media, R>, TableCell<Media, R>> {
 
-  String property;
+  private final String property;
 
   public MediaCellFactory(String property) {
     this.property = property;
@@ -33,20 +33,20 @@ public class MediaCellFactory<R>
     }
 
   }
-  
+
   private final class RatingCell extends TableCell<Media, R> {
     @Override
     protected void updateItem(R item, boolean empty) {
       super.updateItem(item, empty);
-      if(!(item instanceof Integer))
+      if (!(item instanceof Integer))
         return;
       int i = (int) item;
       Rating rating = new Rating(5, i);
       setGraphic(rating);
     }
-    
+
   }
-  
+
   private final class BitRateCell extends TableCell<Media, R> {
     @Override
     protected void updateItem(R item, boolean empty) {
@@ -56,16 +56,17 @@ public class MediaCellFactory<R>
       int i = (int) item;
       setText(String.format("%s%s", byteCount(i, true), "ps"));
     }
-    
+
     private String byteCount(long bytes, boolean si) {
       int unit = si ? 1000 : 1024;
-      if (bytes < unit) return bytes + " b";
+      if (bytes < unit)
+        return bytes + " b";
       int exp = (int) (Math.log(bytes) / Math.log(unit));
-      String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
+      String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
       return String.format("%.0f %sb", bytes / Math.pow(unit, exp), pre);
+    }
   }
-  }
-  
+
   private final class DurationCell extends TableCell<Media, R> {
 
     @Override
@@ -91,21 +92,23 @@ public class MediaCellFactory<R>
   }
 
   private final class DefaultCell extends TableCell<Media, R> {
-    @Override protected void updateItem(R item, boolean empty) {
-      if (item == getItem()) return;
+    @Override
+    protected void updateItem(R item, boolean empty) {
+      if (item == getItem())
+        return;
 
       super.updateItem(item, empty);
 
       if (item == null) {
-          super.setText(null);
-          super.setGraphic(null);
+        super.setText(null);
+        super.setGraphic(null);
       } else if (item instanceof Node) {
-          super.setText(null);
-          super.setGraphic((Node)item);
+        super.setText(null);
+        super.setGraphic((Node) item);
       } else {
-          super.setText(item.toString());
-          super.setGraphic(null);
+        super.setText(item.toString());
+        super.setGraphic(null);
       }
-  }
+    }
   }
 }

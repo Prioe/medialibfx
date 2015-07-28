@@ -2,3 +2,16 @@
     -fx-faint-focus-color: transparent;
 }
 
+.rating > .container > .button {
+    -fx-background-image: url("images/star-o.png");
+    -fx-padding: 8 8;
+}
+
+.rating > .container > .button.strong {
+   -fx-background-image: url("images/star.png");
+}
+
+/* Buttons */
+#volumeButton {
+   -fx-background-color: transparent;
+}  

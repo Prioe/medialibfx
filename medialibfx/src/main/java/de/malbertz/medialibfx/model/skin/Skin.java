@@ -18,5 +18,7 @@ public interface Skin {
   Node highVolumeGraphic();
   Node shuffleGraphic();
   Node repeatGraphic();
+  Node getActiveStar();
+  Node getInactiveStar();
   List<String> getStylesheets();
 }

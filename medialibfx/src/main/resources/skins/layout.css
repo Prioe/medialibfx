@@ -16,20 +16,13 @@
 /* Buttons */
 #nextButton {
    -fx-background-radius: 0.0 3.0 3.0 0.0;
-   -fx-pref-width: 45;
 } 
 #prevButton {
    -fx-background-radius: 3.0 0.0 0.0 3.0;
-   -fx-pref-width: 45;
 }
 #playButton {
    -fx-background-radius: 0.0 0.0 0.0 0.0;
-   -fx-pref-width: 45;
-}
-#volumeButton {
-   -fx-background-color: transparent;
-   -fx-pref-width: 35;
-}   
+} 
 /* Slider */
 #volumeSlider {
       -fx-padding: 0 0 0 5;

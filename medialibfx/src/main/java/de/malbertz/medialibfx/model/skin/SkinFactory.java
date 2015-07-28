@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 
 import de.malbertz.medialibfx.model.properties.PropertyManager;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class SkinFactory {
 
@@ -99,6 +101,10 @@ public class SkinFactory {
         log.debug("{}: fontfamily: {} unicode: {} size: {}", name, fontFamily,
             unicode, size);
         n = new Glyph(fontFamily, unicode).size(size);
+        break;
+      case "image":
+        String url = skinProperties.getProperty("graphic." + name + ".image.url");        
+        n = new ImageView(new Image(SkinFactory.class.getResourceAsStream(url)));
         break;
       default:
         break;
@@ -210,6 +216,18 @@ public class SkinFactory {
         repeat = getGraphic("repeat");
       }
       return repeat;
+    }
+
+    @Override
+    public Node getActiveStar() {
+
+      return getGraphic("activeStar");
+    }
+
+    @Override
+    public Node getInactiveStar() {
+
+      return getGraphic("inactiveStar");
     }
 
     @Override
