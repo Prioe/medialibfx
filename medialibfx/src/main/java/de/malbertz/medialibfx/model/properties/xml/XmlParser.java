@@ -8,18 +8,21 @@ import de.malbertz.medialibfx.model.media.Media;
 
 public class XmlParser {
 
-  private static final JDomXmlParser jdom = new JDomXmlParser();
+  //private static final JDomXmlParser jdom = new JDomXmlParser();
   
   public static void writeToItunes(List<Media> media) {
     throw new UnsupportedOperationException();
   }
 
+  
   public static void writeToXml(Media media) throws IOException {
+    final JDomXmlParser jdom = new JDomXmlParser();
     jdom.write(media);
     jdom.store();
   }
   
   public static void writeToXml(Media... media) throws IOException {
+    final JDomXmlParser jdom = new JDomXmlParser();
     for (int i = 0; i < media.length; i++) {
       jdom.write(media[i]);
     }    
@@ -27,6 +30,7 @@ public class XmlParser {
   }
   
   public static void writeToXml(Collection<? extends Media> media) throws IOException {
+    final JDomXmlParser jdom = new JDomXmlParser();
     for (Media media2 : media) {
       jdom.write(media2);      
     }
@@ -34,6 +38,7 @@ public class XmlParser {
   }
 
   public static List<Media> loadFromXml() {
+    final JDomXmlParser jdom = new JDomXmlParser();
     return jdom.readXml();
   }
 

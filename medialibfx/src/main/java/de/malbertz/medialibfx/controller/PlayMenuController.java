@@ -92,7 +92,14 @@ public class PlayMenuController implements Initializable {
   private void initButtons() {
     // Actions
     playButton.setOnAction(event -> player.pause());
-    volumeButton.setOnAction(event -> volumeSlider.setValue(0));
+    volumeButton.setOnAction(event -> {
+      boolean mute = mediaPlayer.mute();
+      if (mute)
+        volumeButton.setGraphic(skin.muteGraphic());
+      else
+        volumeSlider.setValue(mediaPlayer.getVolume()+0.001d);
+      
+    });
     
     // graphics
     playButton.setGraphic(skin.playGraphic());

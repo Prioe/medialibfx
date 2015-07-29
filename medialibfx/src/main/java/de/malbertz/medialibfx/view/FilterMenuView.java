@@ -7,11 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.malbertz.medialibfx.controller.FilterMenuController;
-import de.malbertz.medialibfx.model.media.MediaFilter;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TreeView;
+import javafx.scene.layout.Pane;
 
-public class FilterMenuView extends TreeView<MediaFilter> {
+public class FilterMenuView extends Pane {
   private static final Logger log = LoggerFactory
       .getLogger(MediaListView.class);
 

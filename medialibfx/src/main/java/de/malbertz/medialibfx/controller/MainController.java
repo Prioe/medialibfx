@@ -107,20 +107,13 @@ public class MainController implements Initializable {
         return null;
       }
     };
-    statusBar.textProperty().bind(worker.messageProperty());
-    statusBar.progressProperty().bind(worker.progressProperty());
-    
-    worker.setOnSucceeded(event -> {
-      statusBar.textProperty().unbind();
-      statusBar.progressProperty().unbind();
-    });
-    
-    new Thread(worker).start();
+    startWorkerTask(worker);
   }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.bundle = resources;
+    statusBar.setText("");
     try {
       mediaListView = new MediaListView(resources);
       filterMenuView = new FilterMenuView(resources);
@@ -151,13 +144,26 @@ public class MainController implements Initializable {
     menuBar.getMenus().add(devMenu);
     MenuItem testVideo = new MenuItem("Test Video");
     testVideo.setOnAction(event -> {
-      try {
-        player.start(new Video(
-            "D:\\Downloads\\hgbgh06nvfhg70ecdfc\\hgbgh06nvfhg70ecdfc\\E01.mkv"));
-      } catch (Exception e) {
-        new ExceptionDialog(e).showAndWait();
-        log.error(e.getMessage(), e);
-      }
+      Task<Object> worker = new Task<Object>() {
+
+        @Override
+        protected Object call() throws Exception {
+          try {
+            updateMessage("Starting Test Video ...");
+            player.start(new Video(
+                "D:\\Downloads\\hgbgh06nvfhg70ecdfc\\hgbgh06nvfhg70ecdfc\\E01.mkv"));
+          } catch (Exception e) {
+            updateMessage("Failed to load Test Video: " + e.getMessage());
+            failed();
+            log.error(e.getMessage(), e);
+          }
+          updateProgress(0, 0);
+          updateMessage("");
+          done();
+          return null;
+        }
+      };
+      startWorkerTask(worker);
     });
     MenuItem testAudio = new MenuItem("Test Audio");
     testAudio.setOnAction(event -> {
@@ -179,6 +185,18 @@ public class MainController implements Initializable {
       }
     });
     devMenu.getItems().addAll(testVideo, testAudio, testYouTube);
+  }
+  
+  public <V> void startWorkerTask(Task<V> worker) {
+    statusBar.textProperty().bind(worker.messageProperty());
+    statusBar.progressProperty().bind(worker.progressProperty());
+    
+    worker.setOnSucceeded(event -> {
+      statusBar.textProperty().unbind();
+      statusBar.progressProperty().unbind();
+    });
+    
+    new Thread(worker).start();
   }
 
   public MultiMediaPlayer getPlayer() {

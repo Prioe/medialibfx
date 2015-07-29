@@ -5,6 +5,8 @@ import java.util.concurrent.TimeUnit;
 import org.controlsfx.control.Rating;
 
 import de.malbertz.medialibfx.model.media.Media;
+import de.malbertz.medialibfx.model.skin.Skin;
+import de.malbertz.medialibfx.model.skin.SkinFactory;
 import javafx.scene.Node;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -13,6 +15,7 @@ import javafx.util.Callback;
 public class MediaCellFactory<R>
     implements Callback<TableColumn<Media, R>, TableCell<Media, R>> {
 
+  private static final Skin skin = SkinFactory.getSkin();
   private final String property;
 
   public MediaCellFactory(String property) {
@@ -28,10 +31,28 @@ public class MediaCellFactory<R>
       return new BitRateCell();
     case "rating":
       return new RatingCell();
+    case "mimeType":
+      return new MimeTypeCell();
     default:
       return new DefaultCell();
     }
 
+  }
+  
+  private final class MimeTypeCell extends TableCell<Media, R> {
+    @Override
+    protected void updateItem(R item, boolean empty) {
+      super.updateItem(item, empty);
+      if (!(item instanceof String))
+        return;
+      String s = (String) item;
+      if (s.indexOf("audio") >= 0)
+        setGraphic(skin.audioGraphic());
+      else if (s.indexOf("video") >= 0)
+        setGraphic(skin.videoGraphic());
+      else 
+        setGraphic(skin.unknownGraphic());
+    }
   }
 
   private final class RatingCell extends TableCell<Media, R> {

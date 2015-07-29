@@ -37,6 +37,8 @@ public class SkinFactory {
     try {
       skins.put("dark", new SkinImpl("/skins/dark", true));
       skins.put("light", new SkinImpl("/skins/light", true));
+      skins.put("jmetro_dark", new SkinImpl("/skins/jmetro_dark", true));
+      skins.put("jmetro_light", new SkinImpl("/skins/jmetro_light", true));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -219,15 +221,18 @@ public class SkinFactory {
     }
 
     @Override
-    public Node getActiveStar() {
-
-      return getGraphic("activeStar");
+    public Node audioGraphic() {
+      return getGraphic("audio");
     }
 
     @Override
-    public Node getInactiveStar() {
+    public Node videoGraphic() {
+      return getGraphic("video");
+    }
 
-      return getGraphic("inactiveStar");
+    @Override
+    public Node unknownGraphic() {
+      return getGraphic("unknown");
     }
 
     @Override

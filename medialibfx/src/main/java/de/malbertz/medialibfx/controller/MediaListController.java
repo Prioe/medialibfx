@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 import de.malbertz.medialibfx.main.Context;
 import de.malbertz.medialibfx.model.media.Media;
 import de.malbertz.medialibfx.model.media.MediaFilter;
-import de.malbertz.medialibfx.model.properties.xml.XmlParser;
+import de.malbertz.medialibfx.model.media.MediaLoader;
 import de.malbertz.medialibfx.view.MediaCellFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,7 +62,7 @@ public class MediaListController implements Initializable {
       });
       return row;
     });
-    mediaList.addAll(XmlParser.loadFromXml());
+    mediaList.addAll(MediaLoader.fromXml());
     initColumns();
 
   }

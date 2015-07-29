@@ -1,15 +1,20 @@
+/* FilterMenu */
+.filter-pane {
+   -fx-pref-width: 150;
+}
 /* PlayMenu */
-#controlPane {
+.control-pane {
+   -fx-padding: 7.0 7.0 7.0 7.0;
    -fx-alignment: CENTER;
-   -fx-spacing: 5;
-   -fx-pref-width: 175;
-   -fx-pref-height: 100
+   -fx-spacing: 5.0;
+   -fx-pref-width: 175.0;
+   -fx-pref-height: 100.0
 }
-#statusPane {
+.status-pane {
    -fx-alignment: CENTER;
-   -fx-spacing: 10
+   -fx-spacing: 10.0
 }
-#statusSubPane {
+.status-sub-pane {
    -fx-alignment: CENTER_LEFT;
 }
 
@@ -25,12 +30,12 @@
 } 
 /* Slider */
 #volumeSlider {
-      -fx-padding: 0 0 0 5;
+      -fx-padding: 0.0 0.0 0.0 5.0;
 }
 #durationSlider {
-   -fx-padding: 0 0 0 5;
+   -fx-padding: 0.0 0.0 0.0 5.0;
 }
 /* Label */
 #durationLabel {
-   -fx-font-size: 40;
+   -fx-font-size: 40.0;
 }

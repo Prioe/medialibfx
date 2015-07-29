@@ -86,7 +86,9 @@ public class Video implements Media {
 
   @Override
   public String[][] properties() {
-    return new String[][] {{"name", "string"},
+    return new String[][] {
+        { "mimeType", "string" },
+        {"name", "string"},
         {"duration", "int"},
         {"size", "int"},
         {"bitRate", "int"},

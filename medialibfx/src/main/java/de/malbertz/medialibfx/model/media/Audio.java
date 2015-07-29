@@ -95,7 +95,7 @@ public class Audio implements Media {
 
   @Override
   public String[][] properties() {
-    return new String[][] { { "name", "string" }, { "duration", "int" },
+    return new String[][] { { "mimeType", "string" }, { "name", "string" }, { "duration", "int" },
         { "size", "int" }, { "bitRate", "int" }, { "year", "int" },
         { "playCount", "int" }, { "rating", "int" }, { "playedLast", "date" },
         { "dateAdded", "date" }, { "location", "string" },

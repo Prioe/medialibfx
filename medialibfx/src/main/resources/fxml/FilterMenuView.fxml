@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<fx:root fx:id="treeView" type="TreeView" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.malbertz.medialibfx.controller.FilterMenuController" />
+<fx:root prefWidth="100" fx:id="resizePane" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.malbertz.medialibfx.controller.FilterMenuController">
+   <children>
+      <TreeView fx:id="filterTreeView"  />
+   </children>
+</fx:root>
